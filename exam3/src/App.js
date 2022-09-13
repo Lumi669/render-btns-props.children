@@ -2,14 +2,23 @@ import React, { useState } from "react";
 import ReactDOM from "react-dom/client";
 
 function Aa(props) {
+  const [isActive, setIsActive] = useState(true);
+
+  function createE(id, fort) {
+    if (fort) {
+      const cc = document.createElement("div");
+      cc.innerText = `Content of section ${id}`;
+      const bb = document.querySelector(".tabs");
+      bb.append(cc);
+    }
+  }
+
   function clickHandler(e) {
     e.preventDefault();
     const id = e.target.id;
     console.log("id = ", id);
-    const cc = document.createElement("div");
-    cc.innerText = `Content of section ${id}`;
-    const bb = document.querySelector(".tabs");
-    bb.appendChild(cc);
+    setIsActive(!isActive);
+    createE(id, isActive);
   }
 
   console.log("props  = ", props);
@@ -23,6 +32,7 @@ function Aa(props) {
             key={index}
             id={index + 1}
             onClick={clickHandler}
+            disabled={index + 1 === 1 ? isActive : !isActive}
           >
             {child.props.title}
           </button>
