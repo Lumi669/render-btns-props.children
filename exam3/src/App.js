@@ -2,38 +2,63 @@ import React, { useState } from "react";
 import ReactDOM from "react-dom/client";
 
 function Aa(props) {
-  const [isActive, setIsActive] = useState(true);
+  const { children } = props;
 
-  function createE(id, fort) {
-    if (fort) {
-      const cc = document.createElement("div");
-      cc.innerText = `Content of section ${id}`;
-      const bb = document.querySelector(".tabs");
-      bb.append(cc);
-    }
+  //const [isDisabled, setIsDisabled] = useState(false);
+
+  function createE(id) {
+    //   // if (!fort) {
+    const cc = document.createElement("div");
+    cc.setAttribute("id", `content${id}`);
+    cc.className = "view";
+    cc.innerText = `Content of section ${Number(id) + 1}`;
+    const bb = document.querySelector(".tabs");
+    bb.append(cc);
+    //   // }
   }
 
   function clickHandler(e) {
     e.preventDefault();
     const id = e.target.id;
     console.log("id = ", id);
-    setIsActive(!isActive);
-    createE(id, isActive);
+    const currentClickedBtn = document.getElementById(id);
+    currentClickedBtn.setAttribute("disabled", "");
+
+    createE(id);
+
+    const allBtnElements = document.getElementsByClassName("btn"); //htmlcollection
+    const allBtnElementsArray = Array.from(allBtnElements); //array
+    console.log("sssaaaa = ", allBtnElementsArray);
+    allBtnElementsArray.forEach((btnElement) => {
+      console.log("btn element id = ", btnElement.id);
+
+      if (btnElement.id !== id) {
+        const aa = document.getElementById(btnElement.id);
+        console.log("aa = ", aa);
+        console.log("no");
+        // aa.disable = false;
+        aa.removeAttribute("disabled");
+      }
+
+      // if (btnElement.id !== id) {
+      //   // btnElement.removeAttribute("disabled");
+      //   currentClickedBtn.setAttribute("disabled", false);
+
+      //   const aa = `content${btnElement.id}`;
+      //   console.log("aa = ", aa);
+      //   const viewElement = document.getElementById(`content${btnElement.id}`);
+      //   viewElement.remove();
+      // }
+    });
   }
 
-  console.log("props  = ", props);
+  // console.log("props  = ", props);
   return (
     <div className="tabs">
       {props.children.map((child, index) => {
-        console.log("child.props.title = ", child.props.title);
+        // console.log("child.props.title = ", child.props.title);
         let element = (
-          <button
-            className="btn"
-            key={index + 1}
-            id={index + 1}
-            onClick={clickHandler}
-            disabled={index + 1 === 1 ? isActive : !isActive}
-          >
+          <button className="btn" key={index} id={index} onClick={clickHandler}>
             {child.props.title}
           </button>
         );
@@ -53,6 +78,7 @@ const App = () => {
       <button title="a1" />
       <button title="a2" />
       <button title="a3" />
+      <button title="a4" />
     </Aa>
   );
 };
