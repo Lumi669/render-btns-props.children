@@ -33,11 +33,7 @@ function Aa(props) {
       console.log("btn element id = ", btnElement.id);
 
       if (btnElement.id !== id) {
-        const aa = document.getElementById(btnElement.id);
-        console.log("aa = ", aa);
-        console.log("no");
-        // aa.disable = false;
-        aa.removeAttribute("disabled");
+        btnElement.removeAttribute("disabled");
       }
 
       // if (btnElement.id !== id) {
