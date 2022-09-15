@@ -26,10 +26,10 @@ function Aa(props) {
     <div className="tabs">
       {props.children.map((child, index) => {
         console.log("child.props.title = ", child.props.title);
-        return (
+        let element = (
           <button
             className="btn"
-            key={index}
+            key={index + 1}
             id={index + 1}
             onClick={clickHandler}
             disabled={index + 1 === 1 ? isActive : !isActive}
@@ -37,6 +37,11 @@ function Aa(props) {
             {child.props.title}
           </button>
         );
+
+        let returnEle;
+
+        child.props.title ? (returnEle = element) : (returnEle = <></>);
+        return returnEle;
       })}
     </div>
   );
