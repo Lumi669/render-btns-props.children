@@ -34,17 +34,19 @@ function Aa(props) {
 
       if (btnElement.id !== id) {
         btnElement.removeAttribute("disabled");
+        const aa = `content${btnElement.id}`;
+        console.log("aa = ", aa);
+        const viewElement = document.getElementById(aa);
+        if (viewElement !== null) {
+          viewElement.remove();
+        }
+        console.log("ppp = ", viewElement);
+        // viewElement.remove();
       }
 
       // if (btnElement.id !== id) {
       //   // btnElement.removeAttribute("disabled");
       //   currentClickedBtn.setAttribute("disabled", false);
-
-      //   const aa = `content${btnElement.id}`;
-      //   console.log("aa = ", aa);
-      //   const viewElement = document.getElementById(`content${btnElement.id}`);
-      //   viewElement.remove();
-      // }
     });
   }
 
