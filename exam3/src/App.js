@@ -1,5 +1,15 @@
+import React from "react";
+
 function Aa(props) {
   const { children } = props;
+
+  //convert children to array
+  const childrenArray = React.Children.toArray(children);
+
+  //only keep title as the key of child.props
+  const validChildren = childrenArray.filter(
+    (child) => child.props.hasOwnProperty("title") === true
+  );
 
   //create view ('view' is the className) element for the clicking button
   function createE(id) {
@@ -42,8 +52,9 @@ function Aa(props) {
 
   return (
     <div className="tabs">
-      {children &&
-        children.map((child, index) => {
+      {validChildren &&
+        validChildren.map((validChild, index) => {
+          console.log("child = ", validChild);
           let element = (
             <button
               className="btn"
@@ -51,21 +62,25 @@ function Aa(props) {
               id={index}
               onClick={clickHandler}
             >
-              {child.props.title}
+              {validChild.props.title}
             </button>
           );
 
-          let returnEle;
-
-          child.props.title ? (returnEle = element) : (returnEle = <></>);
-          return returnEle;
+          return element;
         })}
     </div>
   );
 }
 
 const App = () => {
-  return <Aa></Aa>;
+  return (
+    <Aa>
+      <button titl="a1" />
+      <button titl="a2" />
+      <button titl="a3" />
+      <button title="a4" />
+    </Aa>
+  );
 };
 
 export default App;
