@@ -1,7 +1,7 @@
 function Aa(props) {
   const { children } = props;
 
-  //create view element for the clicking button
+  //create view ('view' is the className) element for the clicking button
   function createE(id) {
     const cc = document.createElement("div");
     cc.setAttribute("id", `content${id}`);
@@ -16,17 +16,21 @@ function Aa(props) {
     const id = e.target.id;
     const currentClickedBtn = document.getElementById(id);
     currentClickedBtn.setAttribute("disabled", "");
+    currentClickedBtn.setAttribute("className", "btn-active");
+    currentClickedBtn.className = "btn-active";
 
     createE(id);
 
     //get all the button elements
-    const allBtnElements = document.getElementsByClassName("btn"); //htmlcollection
+    const allBtnElements = document.getElementsByTagName("button"); //htmlcollection
     const allBtnElementsArray = Array.from(allBtnElements); //array
 
     //check if not the current clicking button, then remove disabled and remove its corresponding view element
     allBtnElementsArray.forEach((btnElement) => {
       if (btnElement.id !== id) {
         btnElement.removeAttribute("disabled");
+        btnElement.className = "btn";
+
         const idOfViewElement = `content${btnElement.id}`;
         const viewElement = document.getElementById(idOfViewElement);
         if (viewElement !== null) {
@@ -38,7 +42,7 @@ function Aa(props) {
 
   return (
     <div className="tabs">
-      {props.children.map((child, index) => {
+      {children.map((child, index) => {
         let element = (
           <button className="btn" key={index} id={index} onClick={clickHandler}>
             {child.props.title}
