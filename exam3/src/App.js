@@ -42,31 +42,30 @@ function Aa(props) {
 
   return (
     <div className="tabs">
-      {children.map((child, index) => {
-        let element = (
-          <button className="btn" key={index} id={index} onClick={clickHandler}>
-            {child.props.title}
-          </button>
-        );
+      {children &&
+        children.map((child, index) => {
+          let element = (
+            <button
+              className="btn"
+              key={index}
+              id={index}
+              onClick={clickHandler}
+            >
+              {child.props.title}
+            </button>
+          );
 
-        let returnEle;
+          let returnEle;
 
-        child.props.title ? (returnEle = element) : (returnEle = <></>);
-        return returnEle;
-      })}
+          child.props.title ? (returnEle = element) : (returnEle = <></>);
+          return returnEle;
+        })}
     </div>
   );
 }
 
 const App = () => {
-  return (
-    <Aa>
-      <button title="a1" />
-      <button title="a2" />
-      <button title="a3" />
-      <button title="a4" />
-    </Aa>
-  );
+  return <Aa></Aa>;
 };
 
 export default App;
